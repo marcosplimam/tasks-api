@@ -1,5 +1,6 @@
 package com.kim.tasksapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kim.tasksapi.models.Task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -78,6 +79,7 @@ public class User {
         this.password = password;
     }
 
+    @JsonIgnore
     public List<Task> getTasks() {
         return tasks;
     }
