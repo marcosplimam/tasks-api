@@ -3,6 +3,7 @@ package com.kim.tasksapi.controllers;
 import com.kim.tasksapi.models.Task;
 import com.kim.tasksapi.models.User;
 import com.kim.tasksapi.services.TaskService;
+import com.kim.tasksapi.services.UserService;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private UserService userService;
+
    @GetMapping("/{id}")
     public ResponseEntity<Task> findById(@PathVariable Long id) {
         Task obj = this.taskService.findById(id);
@@ -32,7 +36,8 @@ public class TaskController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Task>> findAllByUserId(@PathVariable Long userId) {
-        List<Task> objs = this.taskService.findAllByUserId(userId);
+       this.userService.findById(userId);
+       List<Task> objs = this.taskService.findAllByUserId(userId);
         return ResponseEntity.ok().body(objs);
     }
 
