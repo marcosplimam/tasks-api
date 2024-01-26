@@ -3,6 +3,7 @@ package com.kim.tasksapi.services;
 
 import com.kim.tasksapi.models.User;
 import com.kim.tasksapi.repositories.UserRepository;
+import com.kim.tasksapi.services.exceptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> user = this.userRepository.findById(id);
-        return user.orElseThrow(() -> new RuntimeException(
+        return user.orElseThrow(() -> new ObjectNotFoundException(
                 "User not found! Id: " + id + ", Type: " + User.class.getName()
         ));
     }
