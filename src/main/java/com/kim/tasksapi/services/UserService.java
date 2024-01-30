@@ -3,6 +3,7 @@ package com.kim.tasksapi.services;
 
 import com.kim.tasksapi.models.User;
 import com.kim.tasksapi.repositories.UserRepository;
+import com.kim.tasksapi.services.exceptions.DataBindingViolationException;
 import com.kim.tasksapi.services.exceptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class UserService {
         try {
             this.userRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Can't delete since there's related entities!");
+            throw new DataBindingViolationException("Can't delete since there's related entities!");
         }
     }
 
